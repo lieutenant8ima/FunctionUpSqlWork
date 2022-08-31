@@ -1,3 +1,7 @@
+#1.First Download Sample-Superstore Dataset From Internet
+#2.Then Create New Database And Import This CSV File Into Your Mysql SErver Workbench
+#3.Then Apply Following Querys.
+
 use fnup_sql_project;
 select * from superstore;
 ############################################################################################################################################
@@ -114,27 +118,7 @@ order by `Order Date`;
 
 
 ############################################################################################################################################
-select `Product Name`,region,Sum(Quantity) over(partition by region,`Product Name`) from superstore group by region order by region;
 
-############################################################################################################################################
-select `Product name`,region,Quantity
-,Rank()
-over(partition by region order by Quantity ASC) as SUM_Quantity
-from superstore
-group by region
-order by Quantity ASC;
-#############################################################################################################################################
-select *
-from (select `Product Name`,Region,`Quantity`,
-Rank() Over(Partition BY Region Order By `Quantity`)AS Product_By_Category 
-from(select `Product Name`,Region,SUM(`Quantity`)AS Quantity_Product_By_Category
-from superstore 
-group by `Product Name`,Region,`Quantity`
-Order By Quantity)AS superstore1)AS superstore2
-where Quantity_Product_By_Category=1;
-##############################################################################################################################################
-select `Product Name`,Region,Sum(Quantity),Rank() Over(Partition By Region,`Product Name`order by Sum(Quantity)) AS Window_fn  from superstore
-group by `Product Name`,Region Order By Sum(Quantity) DESC,Region,`Product Name`;
 
 
 
